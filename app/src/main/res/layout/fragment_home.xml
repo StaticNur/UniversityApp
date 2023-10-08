@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".home.HomeFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <ImageView
+            android:id="@+id/iv_photo_mgu"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/universitet" />
+
+        <FrameLayout
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#7A000000"></FrameLayout>
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="145dp"
+            android:layout_marginTop="41dp"
+            android:layout_marginEnd="145dp"
+            android:background="@drawable/avatar_photo" />
+
+        <TextView
+            android:id="@+id/tv_name_student"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="180dp"
+            android:gravity="center"
+            android:text="ФИО"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+
+       <!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="300dp"
+            tools:context=".MainActivity">
+
+            <ExpandableListView
+                android:id="@+id/expandableListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="0.5dp"
+                android:indicatorLeft="?android:attr/indeterminateProgressStyle"
+                android:childDivider="@android:color/darker_gray"
+                android:transcriptMode="normal"
+                android:layout_marginTop="?android:attr/actionBarSize"/>
+        </RelativeLayout>-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="310dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#947340A6"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <Spinner
+                    android:id="@+id/spinner_education_doc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#947340A6"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <Spinner
+                    android:id="@+id/spinner_publication"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#947340A6"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <Spinner
+                    android:id="@+id/spinner_R_D"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#947340A6"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <Spinner
+                    android:id="@+id/spinner_grants"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#947340A6"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <Spinner
+                    android:id="@+id/spinner_intellectual_property"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"></Spinner>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
