@@ -39,7 +39,13 @@
                 android:textColor="@color/white"
                 android:textColorHint="#90ffffff"
                 android:textSize="16sp" />
-
+            <TextView
+                android:id="@+id/login_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:textColor="#B30707"
+                android:textSize="16dp"/>
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
@@ -52,6 +58,13 @@
                 android:textColor="@color/white"
                 android:textColorHint="#90ffffff"
                 android:textSize="16sp" />
+            <TextView
+                android:id="@+id/password_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:textColor="#B30707"
+                android:textSize="16dp"/>
             <Button
                 android:id="@+id/b_signin"
                 android:textAllCaps="false"

@@ -41,18 +41,16 @@ class ScheduleFragment : Fragment() {
         setupRecyclerView()
     }
     private fun setupRecyclerView() {
-        val scheduleList = generateDummyData() // Замените этот вызов на ваш метод получения данных
+        val scheduleList = generateDummyData()
         scheduleAdapter = ScheduleAdapter(scheduleList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = scheduleAdapter
     }
     private fun generateDummyData(): List<ScheduleItem> {
-        // Здесь вы можете создать и вернуть свои данные для расписания
         return listOf(
             ScheduleItem("1", "Математика", "Иванов"),
             ScheduleItem("2", "Физика", "Петров"),
             ScheduleItem("3", "История", "Сидоров"),
-            // Добавьте другие элементы по аналогии
         )
     }
 }
