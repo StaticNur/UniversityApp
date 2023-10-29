@@ -1,4 +1,4 @@
-package com.example.universityapp.messages
+package com.example.universityapp.auth
 
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -30,16 +30,16 @@ class TokenRepository {
 
         val client = OkHttpClient()
         val response = client.newCall(request).execute()
-
+        println(response)
         return if (response.isSuccessful) {
             val responseBody = response.body?.string() ?: "Empty response body"
-            //println("Access Token Response: $responseBody")
+            println("Access Token Response: $responseBody")
             val jsonObject = JSONObject(responseBody)
             val accessToken = jsonObject.getString("access_token")
             println("Access token: $accessToken")
             accessToken
         } else {
-            "Error: ${response.code}"
+            "500"
         }
     }
 }

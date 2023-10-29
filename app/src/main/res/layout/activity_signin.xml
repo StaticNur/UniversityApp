@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/ll_signin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background"
@@ -18,15 +19,27 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:gravity="center_horizontal">
-
-            <TextView
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="МГУ им.Огарева"
-                android:textColor="@color/white"
-                android:textSize="28dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="180dp"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="ВХОД \n\nМГУ им.Огарева"
+                    android:textColor="@color/white"
+                    android:textSize="28dp"
+                    android:paddingTop="70dp"
+                    android:paddingBottom="110dp"/>
+                <ProgressBar
+                    android:id="@+id/loadingProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginTop="99dp"/>
+            </FrameLayout>
+
 
             <EditText
                 android:id="@+id/et_email"
@@ -90,14 +103,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
-                android:text="Нет аккаунта?"
+                android:text="Забыли пароль?"
                 android:textColor="@color/white"/>
             <TextView
                 android:id="@+id/tv_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
-                android:text="Зарегистрироваться"
+                android:text="Восстановить"
                 android:layout_marginLeft="10dp"
                 android:textStyle="bold"
                 android:textColor="@color/white"/>

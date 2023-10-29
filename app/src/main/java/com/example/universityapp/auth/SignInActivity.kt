@@ -1,63 +1,130 @@
 package com.example.universityapp.auth
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.universityapp.databinding.ActivityMainBinding
+import com.example.universityapp.MainActivity
 import com.example.universityapp.databinding.ActivitySigninBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class SignInActivity :AppCompatActivity(){
+
+class SignInActivity : AppCompatActivity(), TokenCallback {
     private lateinit var binding: ActivitySigninBinding
-    private var user: String? = null
+    private lateinit var sPref: SharedPreferences
+    private lateinit var loadingProgressBar: ProgressBar
+    private val SAVED_TEXT = "saved_token"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySigninBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        sPref = getSharedPreferences("MyPref", MODE_PRIVATE)
+        loadingProgressBar = binding.loadingProgressBar
+
+        if (!sPref.getString(SAVED_TEXT, "").isNullOrEmpty()) {
+            openRunTimeActivityFragment()
+        } else {
+            // TODO: проверка срока сессии
+        }
         initView()
     }
 
-    fun initView(){
+    fun initView() {
         val bSignin = binding.bSignin
-        bSignin.setOnClickListener{
-            if(chackInput()){
-                openRunTimeActivityFragment()
-            }
+        bSignin.setOnClickListener {
+            showLoader()
+            chackInput()
         }
     }
-    fun chackInput():Boolean{
+
+    private fun chackInput() {
+        val flag = checkNotEmpty()
+        if (flag) {
+            setToken()
+        }
+    }
+
+    private fun checkNotEmpty(): Boolean {
         val etEmail = binding.etEmail
         val etPassword = binding.etPassword
         var flag = true
-        if(etEmail.text.isEmpty()){
+
+        if (etEmail.text.isEmpty()) {
             val error = binding.loginError
             error.visibility = View.VISIBLE
             error.text = "Ошибка в логине"
             flag = false
-        }else binding.loginError.visibility = View.GONE
-        if(etPassword.text.isEmpty()){
+            hideLoader()
+        } else binding.loginError.visibility = View.GONE
+
+        if (etPassword.text.isEmpty()) {
             val error = binding.passwordError
             error.visibility = View.VISIBLE
             error.text = "Ошибка в пароли"
             flag = false
-        }else binding.passwordError.visibility = View.GONE
-        /*if(flag == true){
-            println("Do $user")
-            user = NetworkTask(binding,
-                etEmail.text.toString(),
-                etPassword.text.toString()).execute().get()
-            println("Posle $user")
-            if(user.isNullOrEmpty()){
-                flag = false
-            }
-        }*/
+            hideLoader()
+        } else binding.passwordError.visibility = View.GONE
+
         return flag
     }
-    fun openRunTimeActivityFragment(){
-        val intent: Intent = Intent(this, ActivityMainBinding::class.java)
-        intent.putExtra("user", user)
-        startActivity(intent)
+
+    private fun setToken() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    TokenRepository().getAccessToken(
+                        binding.etEmail.text.toString(),
+                        binding.etPassword.text.toString()
+                    )
+                }
+
+                if (result == "500") {
+                    val error = binding.passwordError
+                    error.visibility = View.VISIBLE
+                    error.text = "Пользователя с таким email/password НЕТ!"
+                } else {
+                    saveToken(result)
+                }
+                onTokenSet(result != null && result != "500")
+
+            } catch (e: Exception) {
+                // Handle exceptions here
+            } finally {
+                hideLoader()
+            }
+        }
     }
 
+    private fun saveToken(token: String?) {
+        val ed: SharedPreferences.Editor = sPref.edit()
+        ed.putString(SAVED_TEXT, token)
+        ed.apply()
+        Toast.makeText(this, "Session open", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onTokenSet(flag: Boolean) {
+        if (flag) {
+            openRunTimeActivityFragment()
+        }
+    }
+
+    private fun showLoader() {
+        loadingProgressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideLoader() {
+        loadingProgressBar.visibility = View.GONE
+    }
+    private fun openRunTimeActivityFragment(){
+        val intent: Intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 }
