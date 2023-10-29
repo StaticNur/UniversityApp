@@ -3,8 +3,6 @@ package com.example.universityapp.model
 import com.example.universityapp.model.data.Root
 
 data class User(
-    val login: String?,
-    val password: String?,
     val token: String?,
     val root: Root?
     /*val objectMapper = ObjectMapper()

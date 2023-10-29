@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.universityapp.auth.NetworkTask
 import com.example.universityapp.databinding.FragmentMessagesBinding
 
 
@@ -33,6 +34,6 @@ class MessageFragment : Fragment() {
         // Запускаем загрузку данных
         viewModel.fetchUserData()*/
 
-        NetworkTask(binding).execute()
+        NetworkTask(binding, this.requireContext()).execute()
     }
 }

@@ -24,48 +24,35 @@
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="#7A000000"></FrameLayout>
-
-        <ImageView
-            android:id="@+id/iv_avatar"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="145dp"
-            android:layout_marginTop="41dp"
-            android:layout_marginEnd="145dp"
-            android:background="@drawable/avatar_photo" />
-
-        <TextView
-            android:id="@+id/tv_name_student"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="180dp"
-            android:gravity="center"
-            android:text="ФИО"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
-
-
-       <!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="300dp"
-            tools:context=".MainActivity">
-
-            <ExpandableListView
-                android:id="@+id/expandableListView"
+            android:background="#7A000000">
+            <Button
+                android:id="@+id/b_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Выйти"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="310dp"/>
+            <ImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="145dp"
+                android:layout_marginTop="41dp"
+                android:layout_marginEnd="145dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/circular_background"/>
+            <TextView
+                android:id="@+id/tv_name_student"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@android:color/darker_gray"
-                android:dividerHeight="0.5dp"
-                android:indicatorLeft="?android:attr/indeterminateProgressStyle"
-                android:childDivider="@android:color/darker_gray"
-                android:transcriptMode="normal"
-                android:layout_marginTop="?android:attr/actionBarSize"/>
-        </RelativeLayout>-->
+                android:layout_height="wrap_content"
+                android:layout_marginTop="180dp"
+                android:gravity="center"
+                android:text="ФИО"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+        </FrameLayout>
 
 
         <LinearLayout

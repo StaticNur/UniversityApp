@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.universityapp.databinding.ActivityMainBinding
-import com.example.universityapp.home.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +24,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_message
             )
         )
-        val bundle = Bundle()
+        //setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+
+        /*val bundle = Bundle()
         bundle.putString("user", intent.getStringExtra("user"))
 
         val homeFragment = HomeFragment()
@@ -32,6 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, homeFragment)
-            .commit()
+            .commit()*/
     }
 }
