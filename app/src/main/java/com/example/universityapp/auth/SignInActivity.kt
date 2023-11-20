@@ -3,11 +3,16 @@ package com.example.universityapp.auth
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.view.MotionEvent
 import android.view.View
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.universityapp.MainActivity
+import com.example.universityapp.R
 import com.example.universityapp.databinding.ActivitySigninBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -41,6 +46,26 @@ class SignInActivity : AppCompatActivity(), TokenCallback {
         bSignin.setOnClickListener {
             showLoader()
             chackInput()
+        }
+        val etPassword: EditText = binding.etPassword
+        etPassword.setOnTouchListener { v, event ->
+            val DRAWABLE_RIGHT = 2
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= (etPassword.right - etPassword.compoundDrawables[DRAWABLE_RIGHT].bounds.width())) {
+                    // Касание произошло на элементе "глазика"
+                    if (etPassword.transformationMethod == PasswordTransformationMethod.getInstance()) {
+                        // Показываем пароль
+                        etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                        etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_invisible, 0)
+                    } else {
+                        // Скрываем пароль
+                        etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                        etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_visible, 0)
+                    }
+                    return@setOnTouchListener true
+                }
+            }
+            false
         }
     }
 

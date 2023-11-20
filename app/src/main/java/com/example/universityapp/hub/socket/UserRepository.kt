@@ -1,4 +1,4 @@
-package com.example.universityapp.messages.socket
+package com.example.universityapp.hub.socket
 
 import okhttp3.Call
 import okhttp3.Callback

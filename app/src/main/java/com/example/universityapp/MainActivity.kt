@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.navigation_home,
                 R.id.navigation_schedule,
-                R.id.navigation_message
+                R.id.navigation_hub
             )
         )
         //setupActionBarWithNavController(navController, appBarConfiguration)
