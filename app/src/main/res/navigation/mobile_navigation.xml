@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_schedule" />
 
     <fragment
-        android:id="@+id/navigation_message"
-        android:name="com.example.universityapp.messages.MessageFragment"
-        android:label="@string/title_messages"
-        tools:layout="@layout/fragment_messages" />
+        android:id="@+id/navigation_hub"
+        android:name="com.example.universityapp.hub.HubFragment"
+        android:label="@string/title_hub"
+        tools:layout="@layout/fragment_hub" />
 </navigation>

@@ -1,6 +1,6 @@
 package com.example.universityapp.model
 
-import com.example.universityapp.model.data.Root
+import com.example.universityapp.model.dataUser.Root
 
 data class User(
     val token: String?,

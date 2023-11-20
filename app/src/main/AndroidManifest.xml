@@ -24,6 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".hub.grade.GradeActivity"></activity>
+        <activity android:name=".hub.grade.rating.DisciplineActivity"></activity>
+        <activity android:name=".hub.message.MessageActivity"></activity>
+        <activity android:name=".hub.myIndividualTrajectory.MyIndividualTrajectoryActivity"></activity>
     </application>
 
 </manifest>

@@ -1,14 +1,14 @@
-package com.example.universityapp.messages
+package com.example.universityapp.hub
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.universityapp.messages.socket.UserRepository
+import com.example.universityapp.hub.socket.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MessageViewModel : ViewModel() {
+class HubViewModel : ViewModel() {
     private val repository = UserRepository()  // Вам нужно создать репозиторий для выполнения запросов
 
     private val _userData = MutableLiveData<String>()

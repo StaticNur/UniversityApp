@@ -1,4 +1,4 @@
-package com.example.universityapp.model.data
+package com.example.universityapp.model.dataUser
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonProperty
