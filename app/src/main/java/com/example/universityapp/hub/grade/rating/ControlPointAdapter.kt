@@ -20,7 +20,8 @@ class ControlPointAdapter(private val controlPoints: List<ControlPoint>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val controlPoint = controlPoints[position]
         holder.assignmentNameTextView.text = controlPoint.assignmentName
-        holder.scoreTextView.text = controlPoint.score.toString()
+        holder.haveBall.text = controlPoint.haveBall.toString()
+        holder.maxBall.text = " / ${controlPoint.maxBall}"
     }
 
     override fun getItemCount(): Int {
@@ -29,6 +30,7 @@ class ControlPointAdapter(private val controlPoints: List<ControlPoint>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var assignmentNameTextView: TextView = itemView.findViewById(R.id.assignmentNameTextView)
-        var scoreTextView: TextView = itemView.findViewById(R.id.scoreTextView)
+        var haveBall: TextView = itemView.findViewById(R.id.haveBall)
+        var maxBall: TextView = itemView.findViewById(R.id.maxBall)
     }
 }

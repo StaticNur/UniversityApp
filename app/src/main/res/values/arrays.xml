@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="periods_array">
+        <item>2021 - 2022</item>
+        <item>2022 - 2023</item>
+        <item>2023 - 2024</item>
+        <item>2024 - 2025</item>
+        <item>2025 - 2026</item>
+        <item>2026 - 2027</item>
+        <item>2027 - 2028</item>
+    </string-array>
+</resources>

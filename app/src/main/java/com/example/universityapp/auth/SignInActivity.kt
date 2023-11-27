@@ -56,11 +56,11 @@ class SignInActivity : AppCompatActivity(), TokenCallback {
                     if (etPassword.transformationMethod == PasswordTransformationMethod.getInstance()) {
                         // Показываем пароль
                         etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                        etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_invisible, 0)
+                        etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_eye_invisible, 0)
                     } else {
                         // Скрываем пароль
                         etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-                        etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_eye_visible, 0)
+                        etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_eye_visible, 0)
                     }
                     return@setOnTouchListener true
                 }
