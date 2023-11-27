@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.universityapp.R
 import com.example.universityapp.hub.grade.rating.DisciplineActivity
 
-class GradeAdapter(private val context: Context, private val disciplineList: List<String>) :
+class GradeAdapter(private val context: Context,
+                   private val disciplineList: List<String>,
+                   private val disciplineId: List<Int>) :
     RecyclerView.Adapter<GradeAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -24,19 +26,21 @@ class GradeAdapter(private val context: Context, private val disciplineList: Lis
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = disciplineList[position]
-        holder.textDiscipline.text = item
+        val itemName = disciplineList[position]
+        val itemId = disciplineId[position]
+        holder.textDiscipline.text = itemName
         holder.textDiscipline.setOnClickListener {
-            openDisciplineActivity()
+            openDisciplineActivity(itemId,itemName)
         }
     }
 
     override fun getItemCount(): Int {
         return disciplineList.size
     }
-    private fun openDisciplineActivity() {
+    private fun openDisciplineActivity(itemId:Int, title:String) {
         val intent: Intent = Intent(context, DisciplineActivity::class.java)
-        //intent.putExtra("id", )
+        intent.putExtra("id", itemId)
+        intent.putExtra("title", title)
         context.startActivity(intent)
     }
 }

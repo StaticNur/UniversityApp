@@ -15,7 +15,7 @@ data class Section(
     @JsonProperty("Title")
     val title: String,
     @JsonProperty("Description")
-    val description: String,
+    val description: String?,
     @JsonProperty("CreatorId")
     val creatorId: String,
     @JsonProperty("CreateDate")

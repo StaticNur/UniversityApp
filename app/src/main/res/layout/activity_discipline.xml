@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp">
+    android:padding="15dp"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/name_discipline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="15dp"
+        android:textColor="@color/black"
         android:text="Название предмета"
         android:textSize="24dp"
         android:textStyle="bold" />
@@ -27,112 +29,3 @@
             android:layout_marginTop="4dp" />
     </LinearLayout>
 </RelativeLayout>
-    <!--<TableLayout
-           android:id="@+id/myTableLayout"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:stretchColumns="*"
-           android:layout_marginTop="16dp">
-
-           <TableRow
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="@android:color/holo_blue_light">
-
-               <TextView
-                   android:layout_width="0dp"
-                   android:layout_weight="1"
-                   android:text="Метрические пространства. Отображения метрических пространств. Теорема Банаха (принцип сжимающих отображений)"
-                   android:textColor="@android:color/white"
-                   android:textStyle="bold"
-                   android:gravity="center"
-                   android:padding="8dp" />
-
-           </TableRow>
-
-           <TableRow>
-               <TextView
-                   android:layout_width="0dp"
-                   android:layout_weight="1"
-                   android:text="Срок сдачи:"
-                   android:textColor="@android:color/darker_gray"
-                   android:padding="8dp" />
-
-               <TextView
-                   android:layout_width="0dp"
-                   android:layout_weight="3"
-                   android:text="домашнее задание"
-                   android:padding="8dp" />
-
-               &lt;!&ndash; Добавьте дополнительные TextView для оставшихся столбцов &ndash;&gt;
-
-               <TextView
-                   android:layout_width="0dp"
-                   android:layout_weight="1"
-                   android:text="5"
-                   android:textStyle="bold"
-                   android:gravity="end"
-                   android:padding="8dp" />
-
-               <TextView
-                   android:layout_width="0dp"
-                   android:layout_weight="1"
-                   android:text="/"
-                   android:textStyle="bold"
-                   android:gravity="center"
-                   android:padding="8dp" />
-
-               <TextView
-                   android:layout_width="0dp"
-                   android:layout_weight="1"
-                   android:text="5"
-                   android:textStyle="bold"
-                   android:gravity="start"
-                   android:padding="8dp" />
-           </TableRow>
-
-           &lt;!&ndash; Добавьте дополнительные TableRow для оставшихся строк &ndash;&gt;
-
-       </TableLayout>
-
-       <TableLayout
-           android:id="@+id/lastTableLayout"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:stretchColumns="*"
-           android:layout_below="@+id/myTableLayout"
-           android:layout_marginTop="16dp">
-
-           &lt;!&ndash; Аналогично добавьте TableRow и TextView для второй таблицы &ndash;&gt;
-
-       </TableLayout>
-
-       &lt;!&ndash; Добавьте дополнительные TableLayout для остальных таблиц &ndash;&gt;
-
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_below="@+id/lastTableLayout"
-           android:layout_marginTop="16dp">
-
-           <TextView
-               android:id="@+id/totalTextView"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Итого: "
-               android:textStyle="bold"
-               android:layout_alignParentStart="true"
-               android:layout_alignParentTop="true"
-               android:padding="8dp" />
-
-           <TextView
-               android:id="@+id/totalScoreTextView"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="34 / 100"
-               android:textStyle="bold"
-               android:layout_alignParentEnd="true"
-               android:layout_alignParentTop="true"
-               android:padding="8dp" />
-
-       </RelativeLayout>-->

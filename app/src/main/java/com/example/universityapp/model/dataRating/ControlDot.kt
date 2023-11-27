@@ -5,7 +5,7 @@ import java.util.Date
 
 data class ControlDot(
     @JsonProperty("Mark")
-    val mark: Any?,
+    val mark: Mark?,
     @JsonProperty("Report")
     val report: Any?,
     @JsonProperty("Id")
@@ -13,7 +13,7 @@ data class ControlDot(
     @JsonProperty("Order")
     val order: Int,
     @JsonProperty("Title")
-    val title: String,
+    val title: String?,
     @JsonProperty("Date")
     val date: Date?,
     @JsonProperty("MaxBall")
