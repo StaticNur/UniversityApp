@@ -18,13 +18,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 
 
 class SignInActivity : AppCompatActivity(), TokenCallback {
     private lateinit var binding: ActivitySigninBinding
     private lateinit var sPref: SharedPreferences
     private lateinit var loadingProgressBar: ProgressBar
-    private val SAVED_TEXT = "saved_token"
+    private val SAVED_ACCESS_TOKEN = "saved_token"
+    private val SAVED_REFRESH_TOKEN = "saved_refresh_token"
+    private val SAVED_DATE_SIGN_IN = "date_sign_in"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +37,29 @@ class SignInActivity : AppCompatActivity(), TokenCallback {
         sPref = getSharedPreferences("MyPref", MODE_PRIVATE)
         loadingProgressBar = binding.loadingProgressBar
 
-        if (!sPref.getString(SAVED_TEXT, "").isNullOrEmpty()) {
+        if (sPref.getString(SAVED_ACCESS_TOKEN, "").isNullOrEmpty()) {
+            initView()
+        }
+        // TODO: проверка срока сессии                  mvp         mvc         mvi        bloc
+        //  adi             dagger Icontrol
+        //  reflactia ne nado               (C) KDN                DAL             SQLite
+        //  сценари транзакции     актив рекертс         DDl         ROOM(RUM) orm       Green Down
+        // Single R           Dot net                 Single R  aspanet
+        // hub   kakoy to klyuch
+        //
+        //               пишем свой DI f на java
+        //
+        //
+        //
+        //
+        else if (checkValidToken()) {
             openRunTimeActivityFragment()
         } else {
-            // TODO: проверка срока сессии
+            setRefreshToken()
+            if (checkValidToken()) {
+                openRunTimeActivityFragment()
+            } else Toast.makeText(this, "Не понятная ошибка", Toast.LENGTH_SHORT).show()
         }
-        initView()
     }
 
     fun initView() {
@@ -55,18 +76,41 @@ class SignInActivity : AppCompatActivity(), TokenCallback {
                     // Касание произошло на элементе "глазика"
                     if (etPassword.transformationMethod == PasswordTransformationMethod.getInstance()) {
                         // Показываем пароль
-                        etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                        etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_eye_invisible, 0)
+                        etPassword.transformationMethod =
+                            HideReturnsTransformationMethod.getInstance()
+                        etPassword.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.mipmap.ic_eye_invisible,
+                            0
+                        )
                     } else {
                         // Скрываем пароль
                         etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
-                        etPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_eye_visible, 0)
+                        etPassword.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.mipmap.ic_eye_visible,
+                            0
+                        )
                     }
                     return@setOnTouchListener true
                 }
             }
             false
         }
+    }
+
+    private fun checkValidToken(): Boolean {
+        // Извлекаем сохраненную дату
+        val savedDateString = sPref.getString(SAVED_DATE_SIGN_IN, "")
+        if (savedDateString != null && savedDateString.isNotEmpty()) {
+            val currentTimeMillis = System.currentTimeMillis()
+            val seconds = currentTimeMillis / 1000
+            val secondsDifference: Long = seconds - savedDateString.toLong()
+            println("Вот столько прожил токен: $secondsDifference")
+            return secondsDifference <= 7199
+        } else return false
     }
 
     private fun chackInput() {
@@ -127,9 +171,40 @@ class SignInActivity : AppCompatActivity(), TokenCallback {
         }
     }
 
+    private fun setRefreshToken() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    RefreshAccessToken().refreshAccessToken(
+                        sPref.getString(SAVED_REFRESH_TOKEN, "").toString()
+                    )
+                }
+
+                if (result == "500") {
+                    initView()
+                } else {
+                    saveToken(result)
+                }
+                onTokenSet(result != null && result != "500")
+
+            } catch (e: Exception) {
+                // Handle exceptions here
+            } finally {
+                hideLoader()
+            }
+        }
+    }
+
     private fun saveToken(token: String?) {
+        val jsonObject = JSONObject(token)
+        val accessToken = jsonObject.getString("access_token")
+        val refreshToken = jsonObject.getString("refresh_token")
         val ed: SharedPreferences.Editor = sPref.edit()
-        ed.putString(SAVED_TEXT, token)
+        ed.putString(SAVED_ACCESS_TOKEN, accessToken)
+        ed.putString(SAVED_REFRESH_TOKEN, refreshToken)
+        val currentTimeMillis = System.currentTimeMillis()
+        val seconds = currentTimeMillis / 1000
+        ed.putString(SAVED_DATE_SIGN_IN, seconds.toString()).apply()
         ed.apply()
         Toast.makeText(this, "Session open", Toast.LENGTH_SHORT).show()
     }
@@ -147,7 +222,8 @@ class SignInActivity : AppCompatActivity(), TokenCallback {
     private fun hideLoader() {
         loadingProgressBar.visibility = View.GONE
     }
-    private fun openRunTimeActivityFragment(){
+
+    private fun openRunTimeActivityFragment() {
         val intent: Intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()

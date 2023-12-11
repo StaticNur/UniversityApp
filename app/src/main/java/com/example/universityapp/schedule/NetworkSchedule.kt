@@ -3,6 +3,7 @@ package com.example.universityapp.schedule
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.AsyncTask
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.universityapp.databinding.FragmentScheduleBinding
@@ -48,22 +49,21 @@ class NetworkSchedule(
     }
 
     override fun onPostExecute(result: String) {
-        val objectMapper = ObjectMapper()
-        val scheduleListType = objectMapper.typeFactory.constructCollectionType(List::class.java, Schedule::class.java)
-        val scheduleList: List<Schedule> = objectMapper.readValue(result, scheduleListType)
-        val lessonList = parseScheduleList(scheduleList)
-        println("После парсинга $lessonList")
+        if(!result.equals("error")){
+            val objectMapper = ObjectMapper()
+            val scheduleListType = objectMapper.typeFactory.constructCollectionType(List::class.java, Schedule::class.java)
+            val scheduleList: List<Schedule> = objectMapper.readValue(result, scheduleListType)
+            val lessonList = parseScheduleList(scheduleList)
+            println("После парсинга $lessonList")
 
-        /*val scheduleList = listOf(
-            ScheduleItem("1", "Математика", "Иванов"),
-            ScheduleItem("2", "Физика", "Петров"),
-            ScheduleItem("3", "История", "Сидоров"),
-        )*/
+            val scheduleAdapter = ScheduleAdapter(lessonList)
+            val recyclerView = binding.recyclerViewSchedule
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = scheduleAdapter
+        }else{
+            Toast.makeText(context, "Ошибка на стороне сервера", Toast.LENGTH_SHORT).show()
+        }
 
-        val scheduleAdapter = ScheduleAdapter(lessonList)
-        val recyclerView = binding.recyclerViewSchedule
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = scheduleAdapter
     }
 
     private fun parseScheduleList(scheduleList: List<Schedule>): List<ScheduleItem> {

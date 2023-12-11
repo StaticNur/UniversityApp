@@ -29,19 +29,20 @@ class NetworkTask(
                 .header("Authorization", "Bearer $accessToken")
                 .build()
             client.newCall(request).execute().use { response ->
+                println(response.message)
                 if (response.isSuccessful) {
                     val responseBody = response.body?.string()
                     val objectMapper = ObjectMapper()
                     println("Response root " + responseBody)
                     val newsList: List<Map<String, Any>> = objectMapper.readValue(responseBody, object : TypeReference<List<Map<String, Any>>>() {})
-                    var result: MutableList<News> = ArrayList()
+                    val result: MutableList<News> = ArrayList()
                     for (newsMap in newsList) {
                         val id: Int = newsMap["Id"] as Int
                         val date: String = newsMap["Date"] as String
                         val text: String = newsMap["Text"] as String
                         val header: String = newsMap["Header"] as String
                         val viewed: Boolean = newsMap["Viewed"] as Boolean
-                        var news: News = News(id, date, text, header, viewed)
+                        val news: News = News(id, date, text, header, viewed)
                         result.add(news)
                     }
                     if (result.isNotEmpty()) {

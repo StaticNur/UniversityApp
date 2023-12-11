@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#201C23"
+    android:background="@color/white"
+
     android:padding="15dp"
     tools:context=".hub.HubFragment">
-
+    <!--android:background="#201C23"-->
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
@@ -42,6 +43,16 @@
             android:background="@drawable/button_background"
             android:text="успеваемость" />
 
+        <Button
+            android:id="@+id/group_list"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_below="@+id/my_individual_trajectory"
+            android:layout_toEndOf="@+id/grade"
+            android:background="@drawable/button_background"
+            android:text="Список группы" />
     </RelativeLayout>
 
     <TextView

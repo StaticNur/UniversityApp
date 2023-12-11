@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.universityapp.databinding.FragmentHomeBinding
+import com.example.universityapp.fragments.HomeFragment
 import com.example.universityapp.model.User
 import com.example.universityapp.model.dataUser.Root
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -17,7 +18,8 @@ import okhttp3.Request
 class NetworkHome(
     private val binding: FragmentHomeBinding,
     private val context: Context,
-    private val homeFragment: HomeFragment) : AsyncTask<Void, Void, String>() {
+    private val homeFragment: HomeFragment
+) : AsyncTask<Void, Void, String>() {
     private lateinit var sPref: SharedPreferences
     override fun doInBackground(vararg params: Void?): String {
         sPref = context.getSharedPreferences("MyPref", AppCompatActivity.MODE_PRIVATE)

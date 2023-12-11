@@ -32,7 +32,7 @@ data class Discipline(
     @JsonProperty("Specialty")
     val specialty: String,
     @JsonProperty("SpecialtyCod")
-    val specialtyCod: String,
+    val specialtyCod: String?,
     @JsonProperty("Profile")
     val profile: String,
     @JsonProperty("PeriodString")
