@@ -1,4 +1,4 @@
-package com.example.universityapp.home
+package com.example.universityapp.viewModels
 
 import androidx.lifecycle.ViewModel
 

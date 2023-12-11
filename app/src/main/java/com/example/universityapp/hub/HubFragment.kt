@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.universityapp.databinding.FragmentHubBinding
 import com.example.universityapp.hub.grade.GradeActivity
+import com.example.universityapp.hub.message.MessageActivity
 
 
 class HubFragment : Fragment() {
@@ -44,7 +45,8 @@ class HubFragment : Fragment() {
     }
 
     private fun openMessageActivity() {
-
+        val intent:Intent = Intent(requireContext(), MessageActivity::class.java)
+        startActivity(intent)
 
     }
 

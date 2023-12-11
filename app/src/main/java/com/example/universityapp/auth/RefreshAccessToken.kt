@@ -5,8 +5,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 
-class TokenRepository {
-    fun getAccessToken(username: String, password: String): String {
+class RefreshAccessToken {
+    fun refreshAccessToken(refreshToken: String): String {
         val clientId = "8"
         val clientSecret = "qweasd"
         val tokenUrl = "https://p.mrsu.ru/OAuth/Token"
@@ -17,9 +17,8 @@ class TokenRepository {
         )
 
         val requestBody = FormBody.Builder()
-            .add("grant_type", "password")
-            .add("username", username)
-            .add("password", password)
+            .add("grant_type", "refresh_token")
+            .add("refresh_token", refreshToken)
             .build()
 
         val request = Request.Builder()
@@ -33,11 +32,14 @@ class TokenRepository {
         println(response)
         return if (response.isSuccessful) {
             val responseBody = response.body?.string() ?: "Empty response body"
-            println("Access Token Response: $responseBody")
+            println("Refreshed Token Response: $responseBody")
             val jsonObject = JSONObject(responseBody)
-            val accessToken = jsonObject.getString("access_token")
-            println("Access token: $accessToken")
-            //accessToken
+            val newAccessToken = jsonObject.getString("access_token")
+            val newRefreshToken = jsonObject.getString("refresh_token")
+            println("New Access token: $newAccessToken")
+            println("New Refresh token: $newRefreshToken")
+
+            //newAccessToken
             responseBody
         } else {
             "500"
