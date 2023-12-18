@@ -1,79 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<!-- activity_discipline.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp"
-    android:background="@color/white">
-    <!--android:background="#201C23"-->>
+    android:layout_height="wrap_content"
 
-    <TextView
-        android:id="@+id/title_faculty"
+    android:background="@color/white">
+
+    <!--<TextView
+        android:id="@+id/name_discipline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="15dp"
-        android:text="Факультет математики и информационных технологий"
         android:textColor="@color/black"
+        android:text="Название предмета"
         android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/choose_semester"
+        android:textStyle="bold" />-->
+    <RelativeLayout
+        android:id="@+id/back"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/title_faculty">
-
-        <Button
-            android:id="@+id/first_semester"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1"
-            android:text="1 семестр" />
-
-        <Button
-            android:id="@+id/second_semester"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1"
-            android:text="2 семестр" />
-
-        <Spinner
-            android:id="@+id/kurs"
-            android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="#20000000">
+        <ImageButton
+            android:id="@+id/buttonBack"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:background="@drawable/spinner_background" />
-    </LinearLayout>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#7340A6"
+            android:src="@drawable/baseline_arrow_back_24" />
 
+        <TextView
+            android:id="@+id/name_discipline"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="60dp"
+            android:gravity="center_vertical"
+            android:text="Называние предмета"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
     <LinearLayout
-        android:id="@+id/disciplines"
+        android:id="@+id/rating_plans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/choose_semester"
-        android:layout_marginTop="10dp">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewGrade"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+        android:paddingHorizontal="15dp"
+        android:layout_below="@+id/back">
 
-    <TextView
-        android:id="@+id/empty_discipline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="32dp"
-        android:text=""
-        android:textColor="@color/black"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewRating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+</RelativeLayout>

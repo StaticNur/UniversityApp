@@ -7,7 +7,7 @@
     android:background="@color/white"
 
     android:padding="15dp"
-    tools:context=".hub.HubFragment">
+    tools:context=".ui.fragments.HubFragment">
     <!--android:background="#201C23"-->
     <RelativeLayout
         android:id="@+id/relativeLayout2"

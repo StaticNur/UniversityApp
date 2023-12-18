@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.universityapp.fragments.HomeFragment"
+        android:name="com.example.universityapp.ui.fragments.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_schedule"
-        android:name="com.example.universityapp.schedule.ScheduleFragment"
+        android:name="com.example.universityapp.ui.fragments.ScheduleFragment"
         android:label="@string/title_schedule"
         tools:layout="@layout/fragment_schedule" />
 
     <fragment
         android:id="@+id/navigation_hub"
-        android:name="com.example.universityapp.hub.HubFragment"
+        android:name="com.example.universityapp.ui.fragments.HubFragment"
         android:label="@string/title_hub"
         tools:layout="@layout/fragment_hub" />
 </navigation>
