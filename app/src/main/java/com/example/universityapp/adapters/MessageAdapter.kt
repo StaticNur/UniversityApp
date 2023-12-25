@@ -1,4 +1,4 @@
-package com.example.universityapp.hub.message
+package com.example.universityapp.adapters
 
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -8,10 +8,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.universityapp.R
+import com.example.universityapp.data.entity.MessageItem
 
-class MessageAdapter(private val messageItems: List<MessageItem>) :
-    RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
+class MessageAdapter() : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
+    private var messageList: List<MessageItem> = ArrayList()
 
+    fun setMessageList(messageList: List<MessageItem>){
+        this.messageList = messageList
+        notifyDataSetChanged()
+    }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val messageText: TextView = itemView.findViewById(R.id.textMessage)
         val messageDate: TextView = itemView.findViewById(R.id.dateMessage)
@@ -31,9 +36,9 @@ class MessageAdapter(private val messageItems: List<MessageItem>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val messageItem = messageItems[position]
-        holder.messageText.text = messageItem.messageText
-        holder.messageDate.text = messageItem.messageDate.toString()
+        val messageItem = messageList[position]
+        holder.messageText.text = messageItem.Text
+        holder.messageDate.text = messageItem.CreateDate
 
         // Дополнительные настройки для определения положения сообщения
         if (getItemViewType(position) == RIGHT_MESSAGE_TYPE) {
@@ -44,15 +49,12 @@ class MessageAdapter(private val messageItems: List<MessageItem>) :
     }
 
     override fun getItemCount(): Int {
-        return messageItems.size
+        return messageList.size
     }
 
     override fun getItemViewType(position: Int): Int {
         // Возвращаем тип элемента (правый или левый)
-        messageItems[3].isRightMessage = true
-        messageItems[5].isRightMessage = true
-        messageItems[7].isRightMessage = true
-        return if (messageItems[position].isRightMessage) RIGHT_MESSAGE_TYPE else LEFT_MESSAGE_TYPE
+        return LEFT_MESSAGE_TYPE
     }
 
     companion object {

@@ -52,7 +52,7 @@
             android:layout_below="@+id/my_individual_trajectory"
             android:layout_toEndOf="@+id/grade"
             android:background="@drawable/button_background"
-            android:text="Список группы" />
+            android:text="события турикетов" />
     </RelativeLayout>
 
     <TextView

@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.universityapp.adapters.NewsAdapter
 import com.example.universityapp.data.entity.News
 import com.example.universityapp.databinding.FragmentHubBinding
-import com.example.universityapp.hub.message.MessageActivity
 import com.example.universityapp.mvvm.NewsFragMVVM
 import com.example.universityapp.ui.activities.DisciplineActivity
+import com.example.universityapp.ui.activities.SecurityActivity
 import com.example.universityapp.utils.NewsCustomFactory
 
 
@@ -54,7 +54,12 @@ class HubFragment : Fragment() {
         binding.myIndividualTrajectory.setOnClickListener {
             openIndividualTrajectoryActivity()
         }
+        binding.groupList.setOnClickListener {
+            openGroupActivity()
+        }
     }
+
+
 
     private fun observeNews() {
         newsMvvm.observeNews().observe(viewLifecycleOwner, object : Observer<News?> {
@@ -78,14 +83,20 @@ class HubFragment : Fragment() {
 
     }
 
-    private fun openMessageActivity() {
-        val intent:Intent = Intent(requireContext(), MessageActivity::class.java)
+    private fun openGroupActivity() {
+        val intent:Intent = Intent(requireContext(), SecurityActivity::class.java)
         startActivity(intent)
+    }
 
+    private fun openMessageActivity() {
+        val intent:Intent = Intent(requireContext(), DisciplineActivity::class.java)
+        intent.putExtra("button","message")
+        startActivity(intent)
     }
 
     private fun openGradeActivity() {
         val intent:Intent = Intent(requireContext(), DisciplineActivity::class.java)
+        intent.putExtra("button","grade")
         startActivity(intent)
     }
 }

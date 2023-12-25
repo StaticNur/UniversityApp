@@ -49,10 +49,15 @@ class DisciplineActivity : AppCompatActivity() {
         handlerSpinner()
         disciplineAdapter.setOnClickListener(object : DisciplineAdapter.OnItemClick {
             override fun onItemClick(discipline: DisciplineXX) {
-                val intent = Intent(this@DisciplineActivity, GradeActivity::class.java)
-                intent.putExtra("id", discipline.Id)
-                intent.putExtra("title", discipline.Title)
-                startActivity(intent)
+                val intentNew:Intent?
+                if(intent.getStringExtra("button").equals("message")){
+                    intentNew = Intent(this@DisciplineActivity, MessageActivity::class.java)
+                }else{
+                    intentNew = Intent(this@DisciplineActivity, GradeActivity::class.java)
+                    intentNew.putExtra("title", discipline.Title)
+                }
+                intentNew.putExtra("id", discipline.Id)
+                startActivity(intentNew)
             }
         })
         binding.firstSemester.setOnClickListener {

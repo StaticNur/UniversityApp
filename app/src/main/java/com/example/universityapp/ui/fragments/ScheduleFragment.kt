@@ -77,7 +77,7 @@ class ScheduleFragment : Fragment() {
     private fun observeSchedule() {
         scheduleMvvm.observeSchedule().observe(viewLifecycleOwner, object : Observer<Schedule?> {
             override fun onChanged(t: Schedule?) {
-                if (!t!![0].TimeTable.Lessons.isEmpty()) {
+                if (!t!!.isEmpty()) {
                     myAdapter.setScheduleList(t[0].TimeTable.Lessons)
                 } else {
                     Toast.makeText(requireContext().applicationContext, "No lesson this day", Toast.LENGTH_SHORT).show()

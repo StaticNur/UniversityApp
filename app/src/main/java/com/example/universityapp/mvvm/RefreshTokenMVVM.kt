@@ -10,11 +10,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignInMVVM() : ViewModel() {
-    private val TAG: String = "SignInMVVM"
-    private val mutableNewToken: MutableLiveData<ResponseBody> = MutableLiveData<ResponseBody>()
+class RefreshTokenMVVM() : ViewModel() {
+    private val TAG: String = "RefreshTokenMVVM"
+    private val mutableRefreshToken: MutableLiveData<ResponseBody> = MutableLiveData<ResponseBody>()
 
-    fun getNewToken(email: String, password: String) {
+    fun getRefreshToken(tokenForRefresh: String) {
         val clientId = "8"
         val clientSecret = "qweasd"
         val credentials = "$clientId:$clientSecret"
@@ -23,14 +23,14 @@ class SignInMVVM() : ViewModel() {
             android.util.Base64.NO_WRAP
         )
 
-        RetrofitInstance.mrsuAuthApi.getNewToken("Basic $base64Credentials", "password", email, password)
+        RetrofitInstance.mrsuAuthApi.getRefreshToken("Basic $base64Credentials", "refresh_token", tokenForRefresh)
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
                     call: Call<ResponseBody>,
                     response: Response<ResponseBody>
                 ) {
                     println(response.body())
-                    mutableNewToken.value = response.body()
+                    mutableRefreshToken.value = response.body()
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -40,7 +40,7 @@ class SignInMVVM() : ViewModel() {
             })
     }
 
-    fun observeNewToken(): LiveData<ResponseBody> {
-        return mutableNewToken
+    fun observeRefreshToken(): LiveData<ResponseBody> {
+        return mutableRefreshToken
     }
 }

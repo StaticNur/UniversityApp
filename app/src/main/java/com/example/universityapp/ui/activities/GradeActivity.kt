@@ -37,14 +37,14 @@ class GradeActivity: AppCompatActivity() {
 
     private fun InitView() {
         prepareRecyclerView()
-        observeDiscipline()
+        observeGrade()
         gradeMVVM.getGrade(disciplineId.toString())
         binding.buttonBack.setOnClickListener {
             finish()
         }
     }
-    private fun observeDiscipline() {
-        gradeMVVM.observeDiscipline().observe(this, object : Observer<Grade?> {
+    private fun observeGrade() {
+        gradeMVVM.observeGrade().observe(this, object : Observer<Grade?> {
             override fun onChanged(t: Grade?) {
                 if (!t!!.Sections.isEmpty()) {
                     sectionAdapter.setSectionList(t.Sections)

@@ -35,6 +35,7 @@ class DisciplineAdapter() :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemName = disciplineList[position]
         holder.textDiscipline.text = itemName.Title
+
         holder.itemView.setOnClickListener {
             onItemClick.onItemClick(disciplineList[position])
         }
