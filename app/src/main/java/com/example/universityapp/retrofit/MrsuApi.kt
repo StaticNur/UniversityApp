@@ -1,9 +1,11 @@
-package com.example.universityapp.data.retrofit
+package com.example.universityapp.retrofit
 
 import com.example.universityapp.data.entity.DisciplineX
 import com.example.universityapp.data.entity.Grade
+import com.example.universityapp.data.entity.Message
 import com.example.universityapp.data.entity.News
 import com.example.universityapp.data.entity.Schedule
+import com.example.universityapp.data.entity.Security
 import com.example.universityapp.data.entity.Student
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -23,6 +25,14 @@ interface MrsuApi {
         @Field("grant_type") grantType: String?,
         @Field("username") username: String?,
         @Field("password") password: String?
+    ): Call<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("OAuth/Token")
+    fun getRefreshToken(
+        @Header("Authorization") authorization: String?,
+        @Field("grant_type") grantType: String?,
+        @Field("refresh_token") tokenForRefresh: String?
     ): Call<ResponseBody>
 
     @GET("v1/User")
@@ -54,26 +64,16 @@ interface MrsuApi {
         @Path("studentId") studentId: String?,
     ): Call<Grade>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @GET("v1/ForumMessage")
     fun getForumMessages(
         @Header("Authorization") token: String?,
-        @Query("disciplineId") disciplineId: Int,
-        @Query("count") count: Int,
-        @Query("startMessageId") startMessageId: Int,
-    ): Call<ResponseBody>
+        @Query("disciplineId") disciplineId: Int
+    ): Call<Message>
+
+    @GET("v1/Security")
+    fun getSecurity(
+        @Header("Authorization") token: String?,
+        @Query("date") date:String?
+    ): Call<Security>
+
 }

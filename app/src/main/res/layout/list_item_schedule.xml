@@ -7,10 +7,11 @@
 
     <TextView
         android:id="@+id/textOrder"
-        android:layout_width="10dp"
+        android:layout_width="120dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:textSize="16sp"
+        android:textColor="@color/black"
         android:gravity="center"
         android:text="1"
         android:background="@drawable/schedule_border"/>
@@ -18,9 +19,10 @@
     <TextView
         android:id="@+id/textLesson"
         android:layout_width="150dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:layout_height="match_parent"
         android:textSize="16sp"
+        android:textColor="@color/black"
         android:gravity="center"
         android:padding="10dp"
         android:background="@drawable/schedule_border"
@@ -30,10 +32,11 @@
     <TextView
         android:id="@+id/textTeacher"
         android:layout_width="100dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:layout_height="match_parent"
         android:textSize="16sp"
         android:padding="10dp"
+        android:textColor="@color/black"
         android:background="@drawable/schedule_border"
         android:gravity="center"
         android:text="Иванов"

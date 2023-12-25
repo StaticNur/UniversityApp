@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
-
 android {
     namespace = "com.example.universityapp"
     compileSdk = 34
@@ -76,4 +76,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     //gif
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.17")
+    //SignalR core
+    implementation("com.microsoft.signalr:signalr:7.0.0")
+    //room
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 }

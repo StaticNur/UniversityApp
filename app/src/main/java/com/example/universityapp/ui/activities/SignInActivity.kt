@@ -36,6 +36,7 @@ class SignInActivity : AppCompatActivity() {
         signeInMVVM = ViewModelProvider(this)[SignInMVVM::class.java]
         sPref = getSharedPreferences("MyPref", MODE_PRIVATE)
         loadingProgressBar = binding.loadingProgressBar
+
         // TODO: проверка срока сессии                  mvp         mvc         mvi        bloc
         //  adi             dagger Icontrol
         //  reflactia ne nado               (C) KDN                DAL             SQLite
@@ -49,16 +50,7 @@ class SignInActivity : AppCompatActivity() {
         //
         //
 
-        /*if (sPref.getString(SAVED_ACCESS_TOKEN, "").isNullOrEmpty()) {
-            initView()
-        } else if (checkValidToken()) {
-            openRunTimeActivityFragment()
-        } else {
-            setRefreshToken()
-            if (checkValidToken()) {
-                openRunTimeActivityFragment()
-            } else Toast.makeText(this, "Не понятная ошибка", Toast.LENGTH_SHORT).show()
-        }*/
+
         initView()
     }
 
@@ -68,13 +60,10 @@ class SignInActivity : AppCompatActivity() {
         val bSignin = binding.bSignin
         bSignin.setOnClickListener {
             showLoader()
-            //checkInput()
             if(checkNotEmpty()){
                 signeInMVVM.getNewToken(binding.etEmail.text.toString(),binding.etPassword.text.toString())
             }
-            //setToken()
         }
-
     }
 
     private fun handlerVisiblePassword(){
@@ -110,24 +99,6 @@ class SignInActivity : AppCompatActivity() {
             false
         }
     }
-    private fun checkValidToken(): Boolean {
-        // Извлекаем сохраненную дату
-        val savedDateString = sPref.getString(SAVED_DATE_SIGN_IN, "")
-        if (savedDateString != null && savedDateString.isNotEmpty()) {
-            val currentTimeMillis = System.currentTimeMillis()
-            val seconds = currentTimeMillis / 1000
-            val secondsDifference: Long = seconds - savedDateString.toLong()
-            println("Вот столько прожил токен: $secondsDifference")
-            return secondsDifference <= 7199
-        } else return false
-    }
-
-    /*private fun checkInput() {
-        val flag = checkNotEmpty()
-        if (flag) {
-            setToken()
-        }
-    }*/
 
     private fun checkNotEmpty(): Boolean {
         val etEmail = binding.etEmail
@@ -153,56 +124,6 @@ class SignInActivity : AppCompatActivity() {
         return flag
     }
 
-   /*private fun setToken() {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val result = withContext(Dispatchers.IO) {
-                    TokenRepository().getAccessToken(
-                        binding.etEmail.text.toString(),
-                        binding.etPassword.text.toString()
-                    )
-                }
-
-                if (result == "500") {
-                    val error = binding.passwordError
-                    error.visibility = View.VISIBLE
-                    error.text = "Пользователя с таким email/password НЕТ!"
-                } else {
-                    saveToken(result)
-                }
-                onTokenSet(result != null && result != "500")
-
-            } catch (e: Exception) {
-                // Handle exceptions here
-            } finally {
-                hideLoader()
-            }
-        }
-    }*/
-
-    /*private fun setRefreshToken() {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val result = withContext(Dispatchers.IO) {
-                    RefreshAccessToken().refreshAccessToken(
-                        sPref.getString(SAVED_REFRESH_TOKEN, "").toString()
-                    )
-                }
-
-                if (result == "500") {
-                    initView()
-                } else {
-                    saveToken(result)
-                }
-                onTokenSet(result != null && result != "500")
-
-            } catch (e: Exception) {
-                // Handle exceptions here
-            } finally {
-                hideLoader()
-            }
-        }
-    }*/
     private fun observeNewToken() {
         signeInMVVM.observeNewToken().observe(this, object : Observer<ResponseBody?> {
             override fun onChanged(t: ResponseBody?) {
@@ -233,12 +154,6 @@ class SignInActivity : AppCompatActivity() {
         ed.apply()
         Toast.makeText(this, "Session open", Toast.LENGTH_SHORT).show()
     }
-
-    /*override fun onTokenSet(flag: Boolean) {
-        if (flag) {
-            openRunTimeActivityFragment()
-        }
-    }*/
 
     private fun showLoader() {
         loadingProgressBar.visibility = View.VISIBLE

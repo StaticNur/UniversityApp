@@ -1,15 +1,14 @@
 package com.example.universityapp.utils
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.universityapp.mvvm.HomeFragMVVM
+import com.example.universityapp.mvvm.SecurityMVVM
 
-class HomeCustomFactory(private val token: String,val context: Context?) : ViewModelProvider.Factory {
+class SecurityCustomFactory(private val token: String) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeFragMVVM::class.java)) {
+        if (modelClass.isAssignableFrom(SecurityMVVM::class.java)) {
             // Ваша логика создания MainFragMVVM, возможно, с использованием someParameter
-            return HomeFragMVVM(token, context) as T
+            return SecurityMVVM(token) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
