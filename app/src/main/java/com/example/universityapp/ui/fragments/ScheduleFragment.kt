@@ -1,5 +1,6 @@
 package com.example.universityapp.ui.fragments
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.example.universityapp.adapters.ScheduleAdapter
 import com.example.universityapp.data.entity.Schedule
 import com.example.universityapp.databinding.FragmentScheduleBinding
 import com.example.universityapp.mvvm.ScheduleFragMVVM
+import com.example.universityapp.ui.activities.UserPageActivity
 import com.example.universityapp.utils.ScheduleCustomFactory
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -65,25 +67,41 @@ class ScheduleFragment : Fragment() {
     }
 
     private fun onScheduleClick() {
-       /* myAdapter.onItemClicked(object : ScheduleAdapter.OnItemScheduleClicked{
-            override fun onClickListener(schedule: Schedule) {
-                val intent = Intent(context, MealActivity::class.java)
-                intent.putExtra(CATEGORY_NAME,category.strCategory)
+       myAdapter.onItemClicked(object : ScheduleAdapter.OnItemScheduleClicked{
+            override fun onClickListener(id: String) {
+                val intent = Intent(context, UserPageActivity::class.java)
+                intent.putExtra("id", id)
                 startActivity(intent)
             }
-        })*/
+        })
     }
 
     private fun observeSchedule() {
         scheduleMvvm.observeSchedule().observe(viewLifecycleOwner, object : Observer<Schedule?> {
             override fun onChanged(t: Schedule?) {
                 if (!t!!.isEmpty()) {
+                    notVisibleEmptyDiscipline()
                     myAdapter.setScheduleList(t[0].TimeTable.Lessons)
                 } else {
+                    visibleEmptyDiscipline()
                     Toast.makeText(requireContext().applicationContext, "No lesson this day", Toast.LENGTH_SHORT).show()
                 }
             }
         })
+    }
+
+    private fun visibleEmptyDiscipline() {
+        binding.apply {
+            recyclerViewSchedule.visibility = View.INVISIBLE
+            emptySchedule.visibility = View.VISIBLE
+        }
+    }
+
+    private fun notVisibleEmptyDiscipline() {
+        binding.apply {
+            recyclerViewSchedule.visibility = View.VISIBLE
+            emptySchedule.visibility = View.INVISIBLE
+        }
     }
 
     private fun prepareRecyclerView() {

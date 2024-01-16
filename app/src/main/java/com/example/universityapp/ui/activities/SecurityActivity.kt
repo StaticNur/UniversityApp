@@ -37,11 +37,11 @@ class SecurityActivity: AppCompatActivity() {
             SecurityCustomFactory(sPref.getString("saved_token", "").toString())
         )[SecurityMVVM::class.java]
 
-        InitView()
+        initView()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun InitView() {
+    private fun initView() {
         prepareRecyclerView()
         observeGrade()
         onClickCalender()
@@ -72,18 +72,21 @@ class SecurityActivity: AppCompatActivity() {
             }
         })
     }
+
     private fun visibleEmptyDiscipline() {
         binding.apply {
             touriquetEvents.visibility = View.INVISIBLE
             emptyEvent.visibility = View.VISIBLE
         }
     }
+
     private fun notVisibleEmptyDiscipline() {
         binding.apply {
             touriquetEvents.visibility = View.VISIBLE
             emptyEvent.visibility = View.INVISIBLE
         }
     }
+
     private fun prepareRecyclerView() {
         binding.recyclerViewSecurity.apply {
             adapter = securityAdapter

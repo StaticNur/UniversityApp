@@ -36,6 +36,10 @@ class ScheduleAdapter : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
         holder.textOrder.text = item.Number.toString()
         holder.textLesson.text = item.Disciplines[0].Title
         holder.textTeacher.text = item.Disciplines[0].Teacher.FIO
+
+        holder.textTeacher.setOnClickListener {
+            onItemClick.onClickListener(item.Disciplines[0].Teacher.Id)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -43,7 +47,7 @@ class ScheduleAdapter : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
     }
 
     interface OnItemScheduleClicked{
-        fun onClickListener(item: List<Lesson>)
+        fun onClickListener(id: String)
     }
 
     fun onItemClicked(onItemClick: OnItemScheduleClicked){

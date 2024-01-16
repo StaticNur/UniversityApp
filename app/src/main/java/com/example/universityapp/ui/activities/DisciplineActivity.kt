@@ -36,7 +36,8 @@ class DisciplineActivity : AppCompatActivity() {
         setContentView(binding.root)
         disciplineAdapter = DisciplineAdapter()
         sPref = this.getSharedPreferences("MyPref", AppCompatActivity.MODE_PRIVATE)
-        disciplineMvvm = ViewModelProvider(this,
+        disciplineMvvm = ViewModelProvider(
+            this,
             DisciplineCustomFactory(sPref.getString("saved_token", "").toString())
         )[DisciplineMVVM::class.java]
         InitView()
@@ -44,15 +45,16 @@ class DisciplineActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)//Android 5+
     private fun InitView() {
+        showLoadingCase()
         prepareRecyclerView()
         observeDiscipline()
         handlerSpinner()
         disciplineAdapter.setOnClickListener(object : DisciplineAdapter.OnItemClick {
             override fun onItemClick(discipline: DisciplineXX) {
-                val intentNew:Intent?
-                if(intent.getStringExtra("button").equals("message")){
+                val intentNew: Intent?
+                if (intent.getStringExtra("button").equals("message")) {
                     intentNew = Intent(this@DisciplineActivity, MessageActivity::class.java)
-                }else{
+                } else {
                     intentNew = Intent(this@DisciplineActivity, GradeActivity::class.java)
                     intentNew.putExtra("title", discipline.Title)
                 }
@@ -61,10 +63,10 @@ class DisciplineActivity : AppCompatActivity() {
             }
         })
         binding.firstSemester.setOnClickListener {
-            disciplineMvvm.getDiscipline(selectedPeriod,"1")
+            disciplineMvvm.getDiscipline(selectedPeriod, "1")
         }
         binding.secondSemester.setOnClickListener {
-            disciplineMvvm.getDiscipline(selectedPeriod,"2")
+            disciplineMvvm.getDiscipline(selectedPeriod, "2")
         }
     }
 
@@ -75,14 +77,25 @@ class DisciplineActivity : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         val spinner = binding.kurs
         spinner.adapter = adapter
-        val defaultYear = periodsArray.indexOf("${LocalDate.now().year} - ${LocalDate.now().year+1}")
+        val defaultYear =
+            periodsArray.indexOf("${LocalDate.now().year - 1} - ${LocalDate.now().year}")
         spinner.setSelection(defaultYear)
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
                 selectedPeriod = periodsArray[position]
-                Toast.makeText(this@DisciplineActivity, "Выбран период: $selectedPeriod", Toast.LENGTH_SHORT).show()
-                disciplineMvvm.getDiscipline(selectedPeriod,"1")
+                Toast.makeText(
+                    this@DisciplineActivity,
+                    "Выбран период: $selectedPeriod",
+                    Toast.LENGTH_SHORT
+                ).show()
+                disciplineMvvm.getDiscipline(selectedPeriod, "1")
             }
+
             override fun onNothingSelected(parentView: AdapterView<*>?) {
             }
         }
@@ -91,32 +104,54 @@ class DisciplineActivity : AppCompatActivity() {
     private fun observeDiscipline() {
         disciplineMvvm.observeDiscipline().observe(this, object : Observer<DisciplineX?> {
             override fun onChanged(t: DisciplineX?) {
-                if (!t!!.RecordBooks.isEmpty()) {
+                if (!t?.RecordBooks.isNullOrEmpty()) {
                     notVisibleEmptyDiscipline()
-                    disciplineAdapter.setDisciplineList(t.RecordBooks[0].Disciplines)
+                    disciplineAdapter.setDisciplineList(t!!.RecordBooks[0].Disciplines)
                 } else {
                     visibleEmptyDiscipline()
-                    Toast.makeText(applicationContext, "Не удалось получить дисцеплины", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "Не удалось получить дисцеплины",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+                hideLoadingCase()
             }
         })
     }
+
+    private fun showLoadingCase() {
+        binding.apply {
+            loadingGif.visibility = View.VISIBLE
+            recyclerViewDiscipline.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun hideLoadingCase() {
+        binding.apply {
+            loadingGif.visibility = View.INVISIBLE
+        }
+    }
+
     private fun visibleEmptyDiscipline() {
         binding.apply {
-            disciplines.visibility = View.INVISIBLE
+            recyclerViewDiscipline.visibility = View.INVISIBLE
             emptyDiscipline.visibility = View.VISIBLE
         }
     }
+
     private fun notVisibleEmptyDiscipline() {
         binding.apply {
-            disciplines.visibility = View.VISIBLE
+            recyclerViewDiscipline.visibility = View.VISIBLE
             emptyDiscipline.visibility = View.INVISIBLE
         }
     }
+
     private fun prepareRecyclerView() {
         binding.recyclerViewDiscipline.apply {
             adapter = disciplineAdapter
-            layoutManager = LinearLayoutManager(context) //GridLayoutManager(context,3, GridLayoutManager.VERTICAL,false)
+            layoutManager =
+                LinearLayoutManager(context) //GridLayoutManager(context,3, GridLayoutManager.VERTICAL,false)
         }
     }
 }

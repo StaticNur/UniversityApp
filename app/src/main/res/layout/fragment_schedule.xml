@@ -43,6 +43,20 @@
                 android:textSize="16sp"/>
         </TableRow>
     </TableLayout>
+
+    <TextView
+        android:id="@+id/emptySchedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="430dp"
+        android:gravity="center"
+        android:text="Занятии нет"
+        android:textColor="@color/black"
+        android:textSize="32dp"
+        android:textStyle="italic"
+        android:visibility="gone"/>
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
@@ -51,6 +65,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewSchedule"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="100dp"/>
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

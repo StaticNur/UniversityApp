@@ -1,0 +1,28 @@
+<!-- res/layout/list_item_security.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_margin="10dp"
+    android:elevation="20dp"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/ivAvatarUserInItem"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circular_background"/>
+
+    <TextView
+        android:id="@+id/fioUserInItem"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="Черноморский Михаил Михайлович"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+</LinearLayout>
