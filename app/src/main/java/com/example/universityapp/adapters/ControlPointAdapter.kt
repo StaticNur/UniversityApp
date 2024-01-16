@@ -12,7 +12,7 @@ class ControlPointAdapter() : RecyclerView.Adapter<ControlPointAdapter.ViewHolde
 
     private var controlPoints: List<ControlDot> = ArrayList()
 
-    fun setControlPointList(controlPoints: List<ControlDot>){
+    fun setControlPointList(controlPoints: List<ControlDot>) {
         this.controlPoints = controlPoints
         notifyDataSetChanged()
     }
@@ -26,7 +26,7 @@ class ControlPointAdapter() : RecyclerView.Adapter<ControlPointAdapter.ViewHolde
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val controlPoint = controlPoints[position]
         holder.assignmentNameTextView.text = controlPoint.Title
-        holder.haveBall.text = if(controlPoint.Mark!=null){
+        holder.haveBall.text = if (controlPoint.Mark != null) {
             controlPoint.Mark.Ball.toString()
         } else "0.0"
         holder.maxBall.text = " / ${controlPoint.MaxBall}"

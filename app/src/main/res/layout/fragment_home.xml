@@ -18,6 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:src="@drawable/loading_gif"
         android:visibility="gone"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

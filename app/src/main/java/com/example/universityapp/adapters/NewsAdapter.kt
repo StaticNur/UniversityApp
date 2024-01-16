@@ -19,6 +19,11 @@ class NewsAdapter() :
         notifyDataSetChanged()
     }
 
+    fun addNews(newsItem: NewsItem) {
+        newsList = listOf(newsItem) + newsList
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnswerViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.list_item_news, parent, false)
@@ -41,7 +46,9 @@ class NewsAdapter() :
 
         fun bind(answer: NewsItem) {
             textViewDate.text = answer.Date
-            textViewHeader.text = answer.Header
+            if(answer.Header.isNullOrEmpty()){
+                textViewHeader.visibility = View.INVISIBLE
+            }else textViewHeader.text = answer.Header
             val htmlData =
                 "<html><head><style>img {max-width: 100%; height: auto;}</style></head><body>" + answer.Text + "</body></html>"
             webViewText.loadDataWithBaseURL(null, htmlData, "text/html", "utf-8", null)
