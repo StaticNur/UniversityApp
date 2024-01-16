@@ -48,13 +48,15 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         showLoadingCase()
         refreshTokenMVVM = ViewModelProvider(this)[RefreshTokenMVVM::class.java]
+
         checkToken()
 
         homeFragMVVM = ViewModelProvider(this,
             HomeCustomFactory(sPref.getString("saved_token", "").toString(), context))[HomeFragMVVM::class.java]
         observeHome()
+        homeFragMVVM.getStudent()
         binding.bLogout.setOnClickListener{
-            deleteUser()
+            deleteAllUsers()
             openAuthenticationActivity()
         }
     }
@@ -80,7 +82,6 @@ class HomeFragment : Fragment() {
             override fun onChanged(t: ResponseBody?) {
                 if (t != null) {
                     saveToken(t.string())
-                    cancelLoadingCase()
                 } else {
                     Toast.makeText(context, "Не удалось получить доступ", Toast.LENGTH_SHORT).show()
                     openAuthenticationActivity()
@@ -99,9 +100,6 @@ class HomeFragment : Fragment() {
         val seconds = currentTimeMillis / 1000
         ed.putString(SAVED_DATE_SIGN_IN, seconds.toString()).apply()
         ed.apply()
-
-
-        homeFragMVVM.getStudent()
         Toast.makeText(context, "New session open", Toast.LENGTH_SHORT).show()
     }
 
@@ -146,8 +144,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun deleteUser() {
-        homeFragMVVM.deleteUserById(sPref.getString("my_id", "").toString())
+    private fun deleteAllUsers() {
+        homeFragMVVM.deleteAllUsers()
     }
 
     private fun saveUser(student: Student) {

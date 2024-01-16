@@ -87,4 +87,10 @@ class HomeFragMVVM(val token: String, val context:Context?) : ViewModel() {
             userRepository.deleteUserById(id)
         }
     }
+
+    fun deleteAllUsers(){
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepository.deleteAllUsers()
+        }
+    }
 }
