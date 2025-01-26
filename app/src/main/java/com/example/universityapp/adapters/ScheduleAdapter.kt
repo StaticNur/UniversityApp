@@ -34,6 +34,7 @@ class ScheduleAdapter : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = scheduleList[position]
         holder.textOrder.text = item.Number.toString()
+
         holder.textLesson.text = item.Disciplines[0].Title
         holder.textTeacher.text = item.Disciplines[0].Teacher.FIO
 

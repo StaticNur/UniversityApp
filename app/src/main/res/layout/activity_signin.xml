@@ -72,8 +72,8 @@
                 android:textColor="@color/white"
                 android:textColorHint="#90ffffff"
                 android:textSize="16dp"
-                android:drawableEnd="@mipmap/ic_eye_visible"
-                android:drawableRight="@mipmap/ic_eye_visible"/>
+                android:drawableEnd="@drawable/ic_eye_invisible"
+                android:drawableRight="@drawable/ic_eye_visible"/>
 
             <TextView
                 android:id="@+id/password_error"

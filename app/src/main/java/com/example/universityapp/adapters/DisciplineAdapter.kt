@@ -17,6 +17,16 @@ class DisciplineAdapter() :
         this.disciplineList = disciplineList
         notifyDataSetChanged()
     }
+    fun addDisciplineList(disciplineList: List<DisciplineXX>){
+        this.disciplineList = this.disciplineList + disciplineList
+        notifyDataSetChanged()
+    }
+
+    fun clearDisciplineList(){
+        var empty: List<DisciplineXX> = ArrayList()
+        this.disciplineList = empty
+        notifyDataSetChanged()
+    }
 
     fun setOnClickListener(onItemClick: OnItemClick){
         this.onItemClick = onItemClick

@@ -106,12 +106,15 @@ class DisciplineActivity : AppCompatActivity() {
             override fun onChanged(t: DisciplineX?) {
                 if (!t?.RecordBooks.isNullOrEmpty()) {
                     notVisibleEmptyDiscipline()
+                    if(t!!.RecordBooks.size > 1){
+                        disciplineAdapter.setDisciplineList(t!!.RecordBooks[1].Disciplines)
+                    }
                     disciplineAdapter.setDisciplineList(t!!.RecordBooks[0].Disciplines)
                 } else {
                     visibleEmptyDiscipline()
                     Toast.makeText(
                         applicationContext,
-                        "Не удалось получить дисцеплины",
+                        "Не удалось получить дисциплины",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

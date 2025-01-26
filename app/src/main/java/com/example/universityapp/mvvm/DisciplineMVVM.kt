@@ -25,7 +25,6 @@ class DisciplineMVVM(val token: String) : ViewModel() {
                 override fun onFailure(call: Call<DisciplineX>, t: Throwable) {
                     Log.e(TAG, t.message.toString())
                 }
-
             })
     }
 

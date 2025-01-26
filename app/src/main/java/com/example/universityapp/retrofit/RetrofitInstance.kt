@@ -12,6 +12,7 @@ object RetrofitInstance {
             .build()
             .create(MrsuApi::class.java)
     }
+
     val mrsuAuthApi: MrsuApi by lazy {
         Retrofit.Builder()
             .baseUrl("https://p.mrsu.ru/")

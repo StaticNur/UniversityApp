@@ -80,7 +80,7 @@ class SignInActivity : AppCompatActivity() {
                         etPassword.setCompoundDrawablesWithIntrinsicBounds(
                             0,
                             0,
-                            R.mipmap.ic_eye_invisible,
+                            R.drawable.ic_eye_invisible,
                             0
                         )
                     } else {
@@ -89,7 +89,7 @@ class SignInActivity : AppCompatActivity() {
                         etPassword.setCompoundDrawablesWithIntrinsicBounds(
                             0,
                             0,
-                            R.mipmap.ic_eye_visible,
+                            R.drawable.ic_eye_visible,
                             0
                         )
                     }
