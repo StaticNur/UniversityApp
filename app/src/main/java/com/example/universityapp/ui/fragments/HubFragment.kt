@@ -94,7 +94,6 @@ class HubFragment : Fragment() {
                         if (newNewsPublishedCount != 0) {
                             for (i in 1..newNewsPublishedCount) {
                                 val newNewsPublished = n[newNewsPublishedCount - i]
-                                println("i=$i : ${n[i-1]}")
                                 saveNews(newNewsPublished)
                                 newsAdapter.addNews(newNewsPublished)
                             }

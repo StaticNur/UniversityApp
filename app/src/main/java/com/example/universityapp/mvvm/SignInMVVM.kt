@@ -15,8 +15,8 @@ class SignInMVVM() : ViewModel() {
     private val mutableNewToken: MutableLiveData<ResponseBody> = MutableLiveData<ResponseBody>()
 
     fun getNewToken(email: String, password: String) {
-        val clientId = 
-        val clientSecret = 
+        val clientId =
+        val clientSecret =
         val credentials = "$clientId:$clientSecret"
         val base64Credentials = android.util.Base64.encodeToString(
             credentials.toByteArray(),

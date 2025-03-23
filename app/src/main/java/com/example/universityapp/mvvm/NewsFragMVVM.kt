@@ -38,7 +38,6 @@ class NewsFragMVVM(val token: String, val context: Context?) : ViewModel() {
         RetrofitInstance.mrsuApi.getNews("Bearer $token")
             .enqueue(object : Callback<News> {
                 override fun onResponse(call: Call<News>, response: Response<News>) {
-                    println("response body: ${response.code()} ${response.body()}")
                     if (response.isSuccessful) {
                         if (response.body() != null) {
                             mutableStudent.value = response.body()

@@ -2,7 +2,6 @@ package com.example.universityapp.mvvm
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -40,8 +39,7 @@ class HomeFragMVVM(val token: String, val context:Context?) : ViewModel() {
                 if(response.body() != null){
                     mutableStudent.value = response.body()
                 }else {
-                    Toast.makeText(context?.applicationContext,
-                        "Ошибка получения данных: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    // Toast.makeText(context?.applicationContext, "Ошибка получения данных: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             }
 

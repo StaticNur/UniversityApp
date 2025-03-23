@@ -3,6 +3,7 @@ package com.example.universityapp.ui.fragments
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,15 +51,6 @@ class HomeFragment : Fragment() {
         refreshTokenMVVM = ViewModelProvider(this)[RefreshTokenMVVM::class.java]
 
         checkToken()
-
-        homeFragMVVM = ViewModelProvider(this,
-            HomeCustomFactory(sPref.getString("saved_token", "").toString(), context))[HomeFragMVVM::class.java]
-        observeHome()
-        homeFragMVVM.getStudent()
-        binding.bLogout.setOnClickListener{
-            deleteAllUsers()
-            openAuthenticationActivity()
-        }
     }
 
     private fun checkToken() {
@@ -71,9 +63,22 @@ class HomeFragment : Fragment() {
             println("Вот столько прожил токен: $secondsDifference")
             if(secondsDifference > 7199){
                 refreshTokenMVVM.getRefreshToken(sPref.getString(SAVED_REFRESH_TOKEN,"").toString())
+            } else {
+                homeVisibility()
             }
         }else {
             openAuthenticationActivity()  //значит он не зарегистрирован
+        }
+    }
+
+    fun homeVisibility() {
+        homeFragMVVM = ViewModelProvider(this,
+            HomeCustomFactory(sPref.getString("saved_token", "").toString(), context))[HomeFragMVVM::class.java]
+        observeHome()
+        homeFragMVVM.getStudent()
+        binding.bLogout.setOnClickListener{
+            deleteAllUsers()
+            openAuthenticationActivity()
         }
     }
 
@@ -82,6 +87,7 @@ class HomeFragment : Fragment() {
             override fun onChanged(t: ResponseBody?) {
                 if (t != null) {
                     saveToken(t.string())
+                    homeVisibility()
                 } else {
                     Toast.makeText(context, "Не удалось получить доступ", Toast.LENGTH_SHORT).show()
                     openAuthenticationActivity()
@@ -90,6 +96,10 @@ class HomeFragment : Fragment() {
         })
     }
     private fun saveToken(token: String) {
+        if (token.isNullOrEmpty()) {
+            Log.e("HomeFragment", "JSON string is empty or null: $token")
+            return
+        }
         val jsonObject = JSONObject(token)
         val accessToken = jsonObject.getString("access_token")
         val refreshToken = jsonObject.getString("refresh_token")
@@ -107,6 +117,7 @@ class HomeFragment : Fragment() {
     private fun observeHome() {
         homeFragMVVM.observeHome().observe(viewLifecycleOwner, object : Observer<Student> {
             override fun onChanged(value: Student) {
+                cancelLoadingCase()
                 if(!homeFragMVVM.isUserSavedInDatabase(value.Id.toString())){
                     sPref.edit().putString("my_id", value.Id.toString()).apply()
                     saveUser(value)
@@ -119,7 +130,6 @@ class HomeFragment : Fragment() {
                     .circleCrop()
                     .into(avatarImage)
                 binding.tvNameStudent.text = fIO.toString()
-                cancelLoadingCase()
             }
         })
     }
